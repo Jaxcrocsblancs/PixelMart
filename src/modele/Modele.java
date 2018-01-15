@@ -10,11 +10,11 @@ public class Modele {
 	String nom;
 	
 	public Modele(){
-		nom = "C:/Users/PC/Desktop/java2/PixelMart/ex1.pgm";
-		System.out.println(nom);
-		imageInit = SeamCarving.readpgm(nom);	
+
+		nom = "C:/Users/JaxCrocsBlanc/Desktop/PixelMart/ex1";
+		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
-		SeamCarving.writepgm(imageInit,"testEcriture");
+
 	}
 	
 	int[][] interest (int[][] image){
@@ -64,6 +64,21 @@ public class Modele {
 	
 	public int[][] getImageInit(){
 		return imageInit;
+	}
+	
+	
+	public void setNom(String nom){
+		this.nom = nom;
+		imageInit = SeamCarving.readpgm(nom);
+		imageModif = interest(imageInit);
+	}
+	
+	public String getNom(){
+		return nom;
+	}
+
+	public void writepgm(String nom) {
+		SeamCarving.writepgm(imageInit,nom);
 	}
 	
 	static Graph tograph(int[][] itr){
@@ -138,4 +153,5 @@ public class Modele {
 	 {
 		new Modele();
 	 }
+
 }

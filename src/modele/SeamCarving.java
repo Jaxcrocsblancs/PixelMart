@@ -6,16 +6,11 @@ public class SeamCarving
 	
    public static int[][] readpgm(String fn)
 	 {		
-	   File fi =  new File(fn);
-		if (fi.exists())  System.out.print("found ");
-		       else System.out.print("not found");
         try {
-           
             File fa = new File (fn);
             FileReader f = new FileReader (fa);
             BufferedReader d = new BufferedReader(f);
             String magic = d.readLine();
-            System.out.println("Magic"+magic);
             String line = d.readLine();
 		   while (line.startsWith("#")) {
 			  line = d.readLine();
