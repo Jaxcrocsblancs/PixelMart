@@ -1,5 +1,6 @@
 package modele;
 import java.io.File;
+import java.util.ArrayList;
 
 import modele.SeamCarving;
 
@@ -9,7 +10,7 @@ public class Modele {
 	String nom;
 	
 	public Modele(){
-		nom = "C:/Users/JaxCrocsBlanc/Desktop/PixelMart/ex1.pgm";
+		nom = "C:/Users/PC/Desktop/java2/PixelMart/ex1.pgm";
 		System.out.println(nom);
 		imageInit = SeamCarving.readpgm(nom);	
 		imageModif = interest(imageInit);
@@ -87,6 +88,50 @@ public class Modele {
 			}
 		}		
 		return g;
+	}
+	
+	public ArrayList<Integer> dijkstra(Graph g, int s, int t){
+		ArrayList<Integer> tabSommet =new ArrayList<>();
+		ArrayList<Integer> tab = new ArrayList<>();
+		int[][] cout =new int[g.getNBSommet()][2];
+		
+		for (int i = 0 ;i<cout.length;i++){
+			cout[i][0]=999999999;
+		}
+		cout[s][0]=0;
+		cout[s][1]=0;
+		int min = s;
+		tab.add(min);
+		while (tab.size()!=g.getNBSommet()){
+			for(Edge e:g.adj(min)){
+				int to = e.getTo();
+				if (cout[to][0]>cout[e.getFrom()][0]+e.getCost()){
+					cout[to][0]=cout[e.getFrom()][0]+e.getCost();
+					cout[to][1]=e.getFrom();
+				}
+			}
+			min = mincout(cout,tab);
+			System.out.println(min);
+			tab.add(min);
+		}
+		min = t;
+		while (min!=s){
+			tabSommet.add(min);
+			min = cout[min][1];
+		}
+		tabSommet.add(min);
+		return tabSommet;
+	}
+	
+	private int mincout(int[][] cout, ArrayList<Integer> tab) {
+		// TODO Auto-generated method stub
+		int min =0;
+		for (int i =1 ;i<cout.length;i++){
+			if ((cout[i][0]<cout[i-1][0])||tab.contains(i-1)){
+				min =i;
+			}
+		}
+		return min;
 	}
 	
 	 public static void main(String[] args)
