@@ -1,7 +1,8 @@
+import java.awt.Dimension;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
+import InterfaceGraphique.VueBarMenu;
 import InterfaceGraphique.VueCentral;
 import modele.Modele;
 
@@ -12,22 +13,18 @@ public class PixelMart extends JFrame {
 	private static final long serialVersionUID = 1L;
 	Modele m;
 	
-	PixelMart(){
+	public PixelMart(){
 		super("PixelMart");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.setPreferredSize(new Dimension(500,500));
 		m = new Modele();
-		this.setPreferedSize(1000, 1500);
-		VueCentral vueCentre = new VueCentral(m);
 		
-		this.setContentPane(vueCentre);     	
+		VueCentral vueCentre = new VueCentral(m);
+		this.setContentPane(vueCentre);     
+		VueBarMenu vueMenu = new VueBarMenu(m);
+		this.setJMenuBar(vueMenu) ;
         pack();
         setVisible(true);
-	}
-
-    private void setPreferedSize(int i, int j) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public static void main(String[] args) {

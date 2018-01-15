@@ -20,7 +20,6 @@ public class VueCentral extends JPanel implements Observer{
 	public VueCentral(Modele m) {
 		super();
 		this.m = m;
-
 	}
 
 	public void paintComponent(Graphics g){
