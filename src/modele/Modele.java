@@ -1,18 +1,19 @@
 package modele;
 import java.io.File;
+import java.util.Observable;
 
 import modele.SeamCarving;
 
-public class Modele {
+public class Modele  extends Observable{
 	int[][] imageInit;
 	int[][] imageModif;
 	String nom;
-	
+	Boolean afficher;
 	public Modele(){
 		nom = "C:/Users/JaxCrocsBlanc/Desktop/PixelMart/ex1";
 		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
-
+		afficher = false;
 	}
 	
 	int[][] interest (int[][] image){
@@ -41,7 +42,6 @@ public class Modele {
 				}
 			}
 		}
-		
 		return rep;		
 	}
 	
@@ -60,21 +60,34 @@ public class Modele {
 		}
 	}
 	
-	public int[][] getImageInit(){
+	public int[][] getImage(){
+		if(afficher){
+			return imageModif;
+		}
 		return imageInit;
-	}
+	} 
 	
 	
 	public void setNom(String nom){
 		this.nom = nom;
 		imageInit = SeamCarving.readpgm(nom);
 		imageModif = interest(imageInit);
+		update();
 	}
 	
 	public String getNom(){
 		return nom;
 	}
-
+	
+	public void setAfficher(){
+		afficher = !afficher;
+		update();
+	}
+	
+	public boolean getAfficher() {
+		return afficher;
+	}
+	
 	public void writepgm(String nom) {
 		SeamCarving.writepgm(imageInit,nom);
 	}
@@ -103,9 +116,9 @@ public class Modele {
 		return g;
 	}
 	
-	 public static void main(String[] args)
-	 {
-		new Modele();
-	 }
-
+	public void update(){
+		setChanged();
+		notifyObservers();
+		clearChanged();		
+	}
 }

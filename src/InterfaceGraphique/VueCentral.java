@@ -20,10 +20,11 @@ public class VueCentral extends JPanel implements Observer{
 	public VueCentral(Modele m) {
 		super();
 		this.m = m;
+		m.addObserver(this);
 	}
 
 	public void paintComponent(Graphics g){
-		    image = m.getImageInit();
+		    image = m.getImage();
 		    for(int i=0; i<image.length;i++){
 		    	for(int j=0;j<image[0].length;j++){
 		    		g.setColor(new Color(image[i][j],image[i][j],image[i][j]));
@@ -33,7 +34,6 @@ public class VueCentral extends JPanel implements Observer{
 	}               
 
 	public void update(Observable o, Object arg) {
-		
-	
+		repaint();
 	}
 }

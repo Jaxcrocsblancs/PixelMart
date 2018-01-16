@@ -1,8 +1,10 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
 import InterfaceGraphique.VueBarMenu;
+import InterfaceGraphique.VueBouton;
 import InterfaceGraphique.VueCentral;
 import modele.Modele;
 
@@ -20,9 +22,11 @@ public class PixelMart extends JFrame {
 		m = new Modele();
 		
 		VueCentral vueCentre = new VueCentral(m);
-		this.setContentPane(vueCentre);     
+		this.add(vueCentre,BorderLayout.CENTER);
 		VueBarMenu vueMenu = new VueBarMenu(m);
 		this.setJMenuBar(vueMenu) ;
+		VueBouton vueBouton = new VueBouton(m);
+		this.add(vueBouton,BorderLayout.SOUTH);
         pack();
         setVisible(true);
 	}
