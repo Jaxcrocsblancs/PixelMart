@@ -1,7 +1,7 @@
 package modele;
 import java.io.File;
 import java.util.Observable;
-
+import java.util.ArrayList;
 import modele.SeamCarving;
 
 public class Modele  extends Observable{
@@ -10,10 +10,14 @@ public class Modele  extends Observable{
 	String nom;
 	Boolean afficher;
 	public Modele(){
-		nom = "C:/Users/JaxCrocsBlanc/Desktop/PixelMart/ex1";
+		nom = "src/image/ex1";
 		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
 		afficher = false;
+
+		printTab(imageInit);
+		Graph g = tograph(imageInit);	
+		supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
 	}
 	
 	int[][] interest (int[][] image){
@@ -43,21 +47,6 @@ public class Modele  extends Observable{
 			}
 		}
 		return rep;		
-	}
-	
-	void printTab(int[][] image){
-		int hauteur;
-		int largeur;
-		hauteur = image.length;
-		largeur = image[0].length;
-		System.out.println("");
-		
-		for(int i=0; i<hauteur; i++){
-			for(int j=0; j<largeur; j++){
-				System.out.print(image[i][j]+"  ");
-			}
-			System.out.println("");
-		}
 	}
 	
 	public int[][] getImage(){
@@ -115,10 +104,116 @@ public class Modele  extends Observable{
 		}		
 		return g;
 	}
-	
+
 	public void update(){
 		setChanged();
 		notifyObservers();
 		clearChanged();		
 	}
+
+	public ArrayList<Integer> dijkstra(Graph g, int s, int t){
+		System.out.println("bite");
+		ArrayList<Integer> tabSommet =new ArrayList<>();
+		ArrayList<Integer> tab = new ArrayList<>();
+		int[][] cout =new int[g.getNBSommet()][2];
+		
+		for (int i = 0 ;i<cout.length;i++){
+			cout[i][0]=999999999;
+		}
+		cout[s][0]=0;
+		cout[s][1]=0;
+		int min = s;
+		tab.add(min);
+		int nb=0;
+		while (tab.size()!=g.getNBSommet()){
+			for(Edge e:g.adj(min)){
+				int to = e.getTo();
+				if (cout[to][0]>cout[e.getFrom()][0]+e.getCost()){
+					cout[to][0]=cout[e.getFrom()][0]+e.getCost();
+					cout[to][1]=e.getFrom();
+				}
+			}
+			min = mincout(cout,tab);
+			tab.add(min);
+			nb +=1;
+			System.out.println(nb);
+		}
+		min = t;
+		min = cout[min][1];
+		while (min!=s){
+			tabSommet.add(min);
+			min = cout[min][1];
+		}
+		
+		
+		return tabSommet;
+	}
+	
+	private int mincout(int[][] cout, ArrayList<Integer> tab) {
+		// TODO Auto-generated method stub
+		int min =0;
+		for (int i =1 ;i<cout.length;i++){
+			if ((cout[i][0]<cout[i-1][0])||tab.contains(i-1)){
+				min =i;
+			}
+		}
+		return min;
+	}
+	
+	public int nbLargeur(int nb, int largeur, int hauteur){
+		int rep;
+		rep = (nb-1)%largeur;
+		return rep;
+	}
+	
+	public int nbHauteur(int nb, int largeur, int hauteur){
+		int rep;
+		rep = (nb-1)/largeur;
+		return rep;
+	}
+	
+	public int[][] supprimeListePixel(int[][] image, ArrayList<Integer> L){
+		int hauteur;
+		int largeur;
+		hauteur = image.length;
+		largeur = image[0].length;
+		int[][] rep = new int[hauteur][largeur-1];
+		int supprL;
+		for(int i= 0 ; i<hauteur ; i++ ){
+			supprL = nbLargeur(L.get(L.size()-i-1),largeur,hauteur);
+			for(int j = 0 ; j<largeur-1 ; j++){				
+				if(j<supprL){
+					rep[i][j]=image[i][j];
+				}
+				else{
+					rep[i][j]=image[i][j+1];
+				}
+			}
+		}
+		printTab(rep);
+		return rep;
+		
+	}
+	
+	void printTab(int[][] image){
+		int hauteur;
+		int largeur;
+		hauteur = image.length;
+		largeur = image[0].length;
+		System.out.println("");
+		
+		for(int i=0; i<hauteur; i++){
+			for(int j=0; j<largeur; j++){
+				System.out.print(image[i][j]+"  ");
+			}
+			System.out.println("");
+		}
+	}
+	
+	 public static void main(String[] args)
+	 {
+		
+		new Modele();
+	 }
+
 }

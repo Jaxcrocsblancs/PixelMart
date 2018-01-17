@@ -72,5 +72,10 @@ public class Graph
 		  {
 		  }						
 	 }
+
+public int getNBSommet() {
+	// TODO Auto-generated method stub
+	return V;
+}
    
 }
