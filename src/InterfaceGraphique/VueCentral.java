@@ -15,7 +15,7 @@ public class VueCentral extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 
 	Modele m ;
-	int[][] image;
+	
 	
 	public VueCentral(Modele m) {
 		super();
@@ -24,6 +24,7 @@ public class VueCentral extends JPanel implements Observer{
 	}
 
 	public void paintComponent(Graphics g){
+		int[][] image;
 		    image = m.getImage();
 		    for(int i=0; i<image.length;i++){
 		    	for(int j=0;j<image[0].length;j++){

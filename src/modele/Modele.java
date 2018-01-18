@@ -17,7 +17,7 @@ public class Modele  extends Observable{
 
 		printTab(imageInit);
 		Graph g = tograph(imageInit);	
-		supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
+		//supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
 	}
 	
 	int[][] interest (int[][] image){
@@ -124,7 +124,6 @@ public class Modele  extends Observable{
 		cout[s][1]=0;
 		int min = s;
 		tab.add(min);
-		int nb=0;
 		while (tab.size()!=g.getNBSommet()){
 			for(Edge e:g.adj(min)){
 				int to = e.getTo();
@@ -135,8 +134,6 @@ public class Modele  extends Observable{
 			}
 			min = mincout(cout,tab);
 			tab.add(min);
-			nb +=1;
-			System.out.println(nb);
 		}
 		min = t;
 		min = cout[min][1];
@@ -144,8 +141,6 @@ public class Modele  extends Observable{
 			tabSommet.add(min);
 			min = cout[min][1];
 		}
-		
-		
 		return tabSommet;
 	}
 	
