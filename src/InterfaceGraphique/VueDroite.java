@@ -1,5 +1,6 @@
 package InterfaceGraphique;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
@@ -22,13 +23,14 @@ public class VueDroite extends JPanel implements Observer{
 	 */
 	private static final long serialVersionUID = 1L;
 	Modele m ;
-	int tailleStylo;
 	
 	public VueDroite(Modele m){
 		super();
 		this.m = m;
 		m.addObserver(this);
-		tailleStylo = 10;
+		GridLayout experimentLayout = new GridLayout(0,2);
+		this.setLayout(experimentLayout);
+		this.add(new JLabel());
 		final JSlider slide = new JSlider() ;
 		slide.setMinimum(0);
 		slide.setMaximum(20);
@@ -41,36 +43,52 @@ public class VueDroite extends JPanel implements Observer{
 		l.put(10,new JLabel("10"));
 		l.put(20,new JLabel("20"));
 		slide.setLabelTable(l);
-		
+		slide.setValue(10);
+		m.setTailleStylo(slide.getValue());
 		slide.addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent arg0) {
-				
+				m.setTailleStylo(slide.getValue());
 			}
 		});
-
 		this.add(slide);
 		
-		JButton moreInteret = new JButton("+Interet");
-		moreInteret.addActionListener(new ActionListener(){
+		
+		JButton interet = new JButton("+Interet");
+		interet .addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			
+				m.setInteret(!m.getInteret());
+				if(m.getInteret()){
+					interet.setText("+Interet");
+				}
+				else{
+					interet.setText("-Interet");
+				}
 			}
 		});
-		this.add(moreInteret);
-		JButton lessInteret = new JButton("-Interet");
-		lessInteret.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-			
-			}
-		});
-		this.add(lessInteret);
-		JButton styloActivite = new JButton("Stylo/OFF");
+		
+		this.add(interet);
+
+		JButton styloActivite = new JButton("Stylo/ON");
 		styloActivite.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			
+				m.setStylo(!m.getStylo());
+				if(m.getStylo()){
+					styloActivite.setText("Stylo/ON");
+				}
+				else{
+					styloActivite.setText("Stylo/OFF");
+				}
 			}
 		});
 		this.add(styloActivite);
+
+		JButton reInit = new JButton("Reinitialisation");
+		reInit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				m.setImageModif(m.interest(m.getImageInit()));
+			}
+		});
+		this.add(reInit);
 		
 	}
 	@Override

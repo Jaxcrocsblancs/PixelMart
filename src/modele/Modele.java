@@ -1,5 +1,4 @@
 package modele;
-import java.io.File;
 import java.util.Observable;
 import java.util.ArrayList;
 import modele.SeamCarving;
@@ -9,18 +8,24 @@ public class Modele  extends Observable{
 	int[][] imageModif;
 	String nom;
 	Boolean afficher;
+	int tailleStylo;
+	boolean stylo;
+	boolean interet;
+	int coordX;
+	int coordY;
+	
 	public Modele(){
 		nom = "src/image/ex1";
 		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
 		afficher = false;
-
-		printTab(imageInit);
-		Graph g = tograph(imageInit);	
+		interet = true;
+		stylo = true;
+		//Graph g = tograph(imageInit);	
 		//supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
 	}
 	
-	int[][] interest (int[][] image){
+	public int[][] interest (int[][] image){
 		int hauteur;
 		int largeur;
 		hauteur = image.length;
@@ -46,6 +51,7 @@ public class Modele  extends Observable{
 				}
 			}
 		}
+		update();
 		return rep;		
 	}
 	
@@ -205,10 +211,83 @@ public class Modele  extends Observable{
 		}
 	}
 	
-	 public static void main(String[] args)
-	 {
-		
-		new Modele();
-	 }
+	public void modifInterest(int y, int x, int nb){
+		if(y<imageModif[0].length && x<imageModif.length && y>0 && x>0){
+			int som = imageModif[x][y]+nb;
+			if(som<0){
+				imageModif[x][y] = 0;
+			}
+			else if(som>255){
+				imageModif[x][y] = 255;
+			}
+			else{
+				imageModif[x][y] = som;
+			}
+			update();
+		}
+	}
+	
+	public int getTailleStylo() {
+		return tailleStylo;
+	}
+
+	public void setTailleStylo(int tailleStylo) {
+		this.tailleStylo = tailleStylo;
+	}
+	
+	public boolean getInteret() {
+		return interet;
+	}
+
+	public void setInteret(boolean interet) {
+		this.interet = interet;
+	}
+
+	public int[][] getImageInit() {
+		return imageInit;
+	}
+
+	public void setImageInit(int[][] imageInit) {
+		this.imageInit = imageInit;
+	}
+	
+	public int[][] getImageModif() {
+		return imageModif;
+	}
+
+	public void setImageModif(int[][] imageModif) {
+		this.imageModif = imageModif;
+	}
+	
+	public int getCoordX() {
+		return coordX;
+	}
+
+	public void setCoordX(int coordX) {
+		this.coordX = coordX;
+		update();
+	}
+
+	public int getCoordY() {
+		return coordY;
+	}
+
+	public void setCoordY(int coordY) {
+		this.coordY = coordY;
+		update();
+	}
+	
+
+	public boolean getStylo() {
+		return stylo;
+	}
+
+	public void setStylo(boolean stylo) {
+		this.stylo = stylo;
+	}
+	//public static void main(String[] args)
+	// {
+	//	new Modele();
+	// }
 
 }
