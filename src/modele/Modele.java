@@ -13,17 +13,24 @@ public class Modele  extends Observable{
 	boolean interet;
 	int coordX;
 	int coordY;
-	
+	int NbCon;
+
+
 	public Modele(){
 		nom = "src/image/ex1";
 		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
 		afficher = false;
-
 		interet = true;
 		stylo = true;
-		//Graph g = tograph(imageInit);	
-		//supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
+		NbCon = 10;
+	}
+	
+	public void supprColonne(){
+		Graph g = tograph(imageModif);	
+		imageInit = supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
+		imageModif = supprimeListePixel(imageModif, dijkstra(g,0,imageModif.length*imageModif[0].length+1));
+		update();
 	}
 	
 	public int[][] interest (int[][] image){
@@ -185,7 +192,6 @@ public class Modele  extends Observable{
 				}
 			}
 		}
-		printTab(rep);
 		return rep;
 		
 	}
@@ -278,9 +284,20 @@ public class Modele  extends Observable{
 	public void setStylo(boolean stylo) {
 		this.stylo = stylo;
 	}
+	
+	public int getNbCon() {
+		return NbCon;
+	}
+
+	public void setNbCon(int nbCon) {
+		NbCon = nbCon;
+	}
+	
 	//public static void main(String[] args)
 	// {
 	//	new Modele();
 	// }
+
+	
 
 }

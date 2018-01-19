@@ -51,10 +51,10 @@ public class VueCentral extends JPanel implements Observer{
 				if(m.getStylo()){
 					int nb;
 					if(m.getInteret()){
-						nb = 255;
+						nb = 128;
 					}
 					else{
-						nb = -255;
+						nb = -128;
 					}
 					for (int i=-m.getTailleStylo();i<=m.getTailleStylo(); i++){
 						for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
@@ -83,10 +83,10 @@ public class VueCentral extends JPanel implements Observer{
 				if(m.getStylo()){
 					int nb;
 					if(m.getInteret()){
-						nb = 255;
+						nb = 128;
 					}
 					else{
-						nb = -255;
+						nb = -128;
 					}
 					for (int i=-m.getTailleStylo();i<=m.getTailleStylo(); i++){
 						for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
