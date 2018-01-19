@@ -19,6 +19,7 @@ public class Modele  extends Observable{
 		imageInit = SeamCarving.readpgm(nom+".pgm");	
 		imageModif = interest(imageInit);
 		afficher = false;
+
 		interet = true;
 		stylo = true;
 		//Graph g = tograph(imageInit);	
@@ -118,48 +119,41 @@ public class Modele  extends Observable{
 	}
 
 	public ArrayList<Integer> dijkstra(Graph g, int s, int t){
-		System.out.println("bite");
-		ArrayList<Integer> tabSommet =new ArrayList<>();
-		ArrayList<Integer> tab = new ArrayList<>();
-		int[][] cout =new int[g.getNBSommet()][2];
+		ArrayList<Integer> tabSommet = new ArrayList<>() ;
+		int [] predecesseur = new int[g.getNBSommet()];
+		int min ;
+		/* init*/
+		Heap f= new Heap(g.getNBSommet());
+		f.decreaseKey(s ,0);
 		
-		for (int i = 0 ;i<cout.length;i++){
-			cout[i][0]=999999999;
-		}
-		cout[s][0]=0;
-		cout[s][1]=0;
-		int min = s;
-		tab.add(min);
-		while (tab.size()!=g.getNBSommet()){
-			for(Edge e:g.adj(min)){
-				int to = e.getTo();
-				if (cout[to][0]>cout[e.getFrom()][0]+e.getCost()){
-					cout[to][0]=cout[e.getFrom()][0]+e.getCost();
-					cout[to][1]=e.getFrom();
+
+		while (!f.isEmpty()){
+			min = f.pop();
+			for(Edge e : g.adj(min)){
+				if(f.priority(min) + e.getCost() < f.priority(e.getTo())){
+
+					f.decreaseKey(e.getTo(), f.priority(min) + e.getCost());
+					predecesseur[e.getTo()] = min;
+
+
 				}
+				
 			}
-			min = mincout(cout,tab);
-			tab.add(min);
+
 		}
-		min = t;
-		min = cout[min][1];
+		
+		
+		min=t;
+
+		min=predecesseur[min];
 		while (min!=s){
+			
 			tabSommet.add(min);
-			min = cout[min][1];
+			min=predecesseur[min];
 		}
 		return tabSommet;
 	}
 	
-	private int mincout(int[][] cout, ArrayList<Integer> tab) {
-		// TODO Auto-generated method stub
-		int min =0;
-		for (int i =1 ;i<cout.length;i++){
-			if ((cout[i][0]<cout[i-1][0])||tab.contains(i-1)){
-				min =i;
-			}
-		}
-		return min;
-	}
 	
 	public int nbLargeur(int nb, int largeur, int hauteur){
 		int rep;
