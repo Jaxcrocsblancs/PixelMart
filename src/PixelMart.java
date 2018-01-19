@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import InterfaceGraphique.VueBarMenu;
 import InterfaceGraphique.VueBouton;
 import InterfaceGraphique.VueCentral;
+import InterfaceGraphique.VueDroite;
 import modele.Modele;
 
 public class PixelMart extends JFrame {
@@ -18,7 +19,7 @@ public class PixelMart extends JFrame {
 	public PixelMart(){
 		super("PixelMart");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(500,500));
+		this.setPreferredSize(new Dimension(1000,500));
 		m = new Modele();
 		
 		VueCentral vueCentre = new VueCentral(m);
@@ -27,6 +28,8 @@ public class PixelMart extends JFrame {
 		this.setJMenuBar(vueMenu) ;
 		VueBouton vueBouton = new VueBouton(m);
 		this.add(vueBouton,BorderLayout.SOUTH);
+		VueDroite vueDroite = new VueDroite(m);
+		this.add(vueDroite,BorderLayout.EAST);
         pack();
         setVisible(true);
 	}
