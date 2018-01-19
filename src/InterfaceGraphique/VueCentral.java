@@ -1,6 +1,7 @@
 package InterfaceGraphique;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
@@ -24,18 +25,68 @@ public class VueCentral extends JPanel implements Observer{
 	public VueCentral(Modele m) {
 		super();
 		this.m = m;
+		this.setPreferredSize(new Dimension(m.getImageModif()[0].length,m.getImageModif().length));
 		m.addObserver(this);
+		this.addMouseListener(new MouseListener(){
 
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				if(m.getStylo()){
+					int nb;
+					if(m.getInteret()){
+						nb = 255;
+					}
+					else{
+						nb = -255;
+					}
+					for (int i=-m.getTailleStylo();i<=m.getTailleStylo(); i++){
+						for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
+							if( Math.round(Math.sqrt(i*i + j*j)) <= m.getTailleStylo())
+								m.modifInterest(arg0.getX()+ i,arg0.getY()+j, nb);
+							
+						}
+					}
+					m.setCoordX(arg0.getX());
+					m.setCoordY(arg0.getY());
+				}
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		this.addMouseMotionListener(new MouseMotionListener(){
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 				if(m.getStylo()){
 					int nb;
 					if(m.getInteret()){
-						nb=50;
+						nb = 255;
 					}
 					else{
-						nb = -50;
+						nb = -255;
 					}
 					for (int i=-m.getTailleStylo();i<=m.getTailleStylo(); i++){
 						for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
@@ -75,7 +126,12 @@ public class VueCentral extends JPanel implements Observer{
 					for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
 						if(j+m.getCoordX()>0 && i+m.getCoordY()>0 && j+m.getCoordX()<image[0].length && i+m.getCoordY()<image.length)
 						if( Math.round(Math.sqrt(i*i + j*j)) == m.getTailleStylo()){
-							g.setColor(new Color(255,0,0));
+							if((i+j)%2==0){
+								g.setColor(new Color(0,0,0));
+							}
+							else{
+								g.setColor(new Color(255,255,255));
+							}
 				    		g.drawLine(j+m.getCoordX(),i+m.getCoordY(),j+m.getCoordX(),i+m.getCoordY());
 						}
 					}
@@ -84,6 +140,8 @@ public class VueCentral extends JPanel implements Observer{
 	}               
 
 	public void update(Observable o, Object arg) {
+		this.setSize(new Dimension(m.getImageModif()[0].length,m.getImageModif().length));
 		repaint();
+		
 	}
 }

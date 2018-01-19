@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public class VueDroite extends JPanel implements Observer{
 		super();
 		this.m = m;
 		m.addObserver(this);
-		GridLayout experimentLayout = new GridLayout(0,2);
+		GridLayout experimentLayout = new GridLayout(0,1);
 		this.setLayout(experimentLayout);
 		this.add(new JLabel());
 		final JSlider slide = new JSlider() ;
@@ -38,6 +39,8 @@ public class VueDroite extends JPanel implements Observer{
 		slide.setPaintTicks(true);
 		slide.setPaintLabels(true);
 		
+		JLabel titre = new JLabel("Stylo",JLabel.CENTER);
+		this.add(titre);
 		Hashtable<Integer,JLabel> l = new Hashtable<>();
 		l.put(0,new JLabel("0"));
 		l.put(10,new JLabel("10"));

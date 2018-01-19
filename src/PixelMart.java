@@ -19,9 +19,8 @@ public class PixelMart extends JFrame {
 	public PixelMart(){
 		super("PixelMart");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(1000,500));
-		m = new Modele();
-		
+		//this.setPreferredSize(new Dimension(900,500));
+		m = new Modele();		
 		VueCentral vueCentre = new VueCentral(m);
 		this.add(vueCentre,BorderLayout.CENTER);
 		VueBarMenu vueMenu = new VueBarMenu(m);

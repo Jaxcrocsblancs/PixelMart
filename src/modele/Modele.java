@@ -277,7 +277,6 @@ public class Modele  extends Observable{
 		update();
 	}
 	
-
 	public boolean getStylo() {
 		return stylo;
 	}
