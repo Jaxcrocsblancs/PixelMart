@@ -17,9 +17,9 @@ public class Modele  extends Observable{
 
 
 	public Modele(){
-		nom = "src/image/ex1";
-		imageInit = SeamCarving.readpgm(nom+".pgm");	
-		imageModif = interest(imageInit);
+		/*nom = "image/ex1";*/
+		imageInit = new int[1][1];/*SeamCarving.readpgm(nom+".pgm");*/	
+		imageModif =new int[1][1];/*interest(imageInit);*/
 		afficher = false;
 		interet = true;
 		stylo = true;

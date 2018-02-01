@@ -25,7 +25,7 @@ public class VueDroite extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 	Modele m ;
 	
-	public VueDroite(Modele m){
+	public VueDroite(final Modele m){
 		super();
 		this.m = m;
 		m.addObserver(this);
@@ -56,7 +56,7 @@ public class VueDroite extends JPanel implements Observer{
 		this.add(slide);
 		
 		
-		JButton interet = new JButton("+Interet");
+		final JButton interet = new JButton("+Interet");
 		interet .addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				m.setInteret(!m.getInteret());
@@ -71,7 +71,7 @@ public class VueDroite extends JPanel implements Observer{
 		
 		this.add(interet);
 
-		JButton styloActivite = new JButton("Stylo/ON");
+		final JButton styloActivite = new JButton("Stylo/ON");
 		styloActivite.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				m.setStylo(!m.getStylo());

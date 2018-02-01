@@ -19,7 +19,7 @@ public class VueBarMenu extends JMenuBar{
 	private static final long serialVersionUID = 1L;
 	Modele m ;
 	
-	public VueBarMenu(Modele m) {
+	public VueBarMenu(final Modele m) {
 		super();
 		this.m = m;
 		JMenuItem ouvrir = new JMenuItem("Ouvrir") ;

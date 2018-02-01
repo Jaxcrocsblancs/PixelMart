@@ -22,7 +22,7 @@ public class VueCentral extends JPanel implements Observer{
 	Modele m ;
 	
 	
-	public VueCentral(Modele m) {
+	public VueCentral(final Modele m) {
 		super();
 		this.m = m;
 		this.setPreferredSize(new Dimension(m.getImageModif()[0].length,m.getImageModif().length));
