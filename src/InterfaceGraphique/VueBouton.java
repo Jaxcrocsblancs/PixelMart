@@ -69,13 +69,13 @@ public class VueBouton extends JPanel implements Observer{
 			
 		});
 		this.add(supprColonne);
-		
+		/*
 		JButton supprLigne = new JButton("-Ligne");
 		this.add(supprLigne);
 		JButton addColonne = new JButton("+Colonne");
 		this.add(addColonne);
 		JButton addLigne = new JButton("+Ligne");
-		this.add(addLigne);
+		this.add(addLigne);*/
 		final JButton interet = new JButton("Interet");
 		interet.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
