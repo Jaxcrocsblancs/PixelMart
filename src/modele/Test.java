@@ -1,4 +1,7 @@
 package modele;
+
+import java.util.ArrayList;
+
 class Test
 {
    static boolean visite[];
@@ -56,7 +59,7 @@ class Test
 		dfs(g, 3);
 	 }
    
-   public static void testGraph2()
+   public void testGraph2()
 	 {
 	   
 		Graph g;
@@ -65,24 +68,26 @@ class Test
 					 {140,52,5,25}};
 		g=tograph2(t);
 		g.writeFile("test.dot");
+		ArrayList<Integer> tab = dijkstraEtInvertion(g,0,g.getNBSommet()-1);
+		g.writeFile("testinvers.dot");
 	 }
    
    static Graph tograph2(int[][] itr){
-		int nbSommet = (itr.length*itr[0].length)*2+2;
+		int nbSommet = (itr.length*itr[0].length)*2+2-itr[0].length*2;
 		int cmp=1;
 		Graph g = new Graph(nbSommet);
 		for (int i =0;i<itr[0].length;i++){
 			g.addEdge(new Edge(0, cmp, 0));
-			g.addEdge(new Edge(cmp, cmp+itr[0].length, 0));
 			g.addEdge(new Edge((nbSommet-1)-(itr[0].length-cmp)-1, nbSommet-1, itr[itr.length-1][cmp-1]));
 			cmp++;
 		}
-		cmp=1+itr[0].length;
+		cmp=1;
 		for (int i =0;i<itr.length-1;i++){
 			for (int j=0;j<itr[0].length;j++)
 			{
 			g.addEdge(new Edge(cmp, cmp+itr[0].length, itr[i][j]));
-			g.addEdge(new Edge(cmp+itr[0].length, cmp+(itr[0].length*2), 0));
+			if (cmp+ itr[0].length<g.getNBSommet()-itr[0].length-1 )
+				g.addEdge(new Edge(cmp+itr[0].length, cmp+(itr[0].length*2), 0));
 			if (j>0)
 				g.addEdge(new Edge(cmp, cmp+itr[0].length-1, itr[i][j]));
 			if (j<itr[0].length-1)
@@ -94,9 +99,67 @@ class Test
 		return g;
 	}
    
+   public ArrayList<Integer> dijkstraEtInvertion(Graph g, int s, int t){
+		ArrayList<Integer> tabSommet = new ArrayList<>() ;
+		int [] predecesseur = new int[g.getNBSommet()];
+		int min ;
+		/* init*/
+		Heap f= new Heap(g.getNBSommet());
+		f.decreaseKey(s ,0);
+		
+
+		while (!f.isEmpty()){
+			min = f.pop();
+			for(Edge e : g.adj(min)){
+				if(f.priority(min) + e.getCost() < f.priority(e.getTo())){
+
+					f.decreaseKey(e.getTo(), f.priority(min) + e.getCost());
+					predecesseur[e.getTo()] = min;
+
+
+				}
+				
+			}
+
+		}
+		min=t;
+		min=predecesseur[min];
+		while (min!=s){
+			
+			tabSommet.add(min);
+			min=predecesseur[min];
+		}
+		
+		for (Edge e :g.edges()){
+			e.cost=e.cost+(f.priority(e.from)-f.priority(e.to));
+		}
+		for(Edge e :g.adj(0))
+		{
+			if (e.to==tabSommet.get(0)){
+				int x=e.from;
+				e.from=e.to;
+				e.to=x;
+			}
+		}
+		min=t;
+		while (min!=s){
+			for(Edge e :g.adj(predecesseur[min]))
+			{
+				if (e.getTo()==min){
+					e.from=min;
+					e.to=predecesseur[min];
+				}
+				
+			}
+			min=predecesseur[min];
+		}
+		return tabSommet;
+	}
+   
+   
    public static void main(String[] args)
 	 {
 	   Test t=new Test();
-		testGraph2();
+		t.testGraph2();
 	 }
 }
