@@ -2,8 +2,6 @@ package InterfaceGraphique;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -19,7 +17,7 @@ public class VueBarMenu extends JMenuBar{
 	private static final long serialVersionUID = 1L;
 	Modele m ;
 	
-	public VueBarMenu(Modele m) {
+	public VueBarMenu(final Modele m) {
 		super();
 		this.m = m;
 		JMenuItem ouvrir = new JMenuItem("Ouvrir") ;

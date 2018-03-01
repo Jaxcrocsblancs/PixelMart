@@ -18,7 +18,17 @@ public class Graph
 		
 	 }
 
-   public int vertices()
+   public Graph(Graph g) {
+	// TODO Auto-generated constructor stub
+   V=g.getNBSommet();
+   E=g.E;
+   for (Edge e : g.edges()){
+	   Edge f = new Edge(e.from, e.to, e.cost);
+	   addEdge(f);
+   }
+   }
+
+public int vertices()
 	 {
 		return V;
 	 }

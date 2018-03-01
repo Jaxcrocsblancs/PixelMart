@@ -17,9 +17,10 @@ public class Modele  extends Observable{
 
 
 	public Modele(){
-		/*nom = "src/image/ex1";*/
-		imageInit = new int[1][1]; /*SeamCarving.readpgm(nom+".pgm");	*/
-		imageModif  = new int[1][1]; /*= interest(imageInit);*/
+		/*nom = "image/ex1";*/
+		imageInit = new int[1][1];/*SeamCarving.readpgm(nom+".pgm");*/	
+		imageModif =new int[1][1];/*interest(imageInit);*/
+
 		afficher = false;
 		interet = true;
 		stylo = true;
@@ -291,6 +292,33 @@ public class Modele  extends Observable{
 
 	public void setNbCon(int nbCon) {
 		NbCon = nbCon;
+	}
+	
+	static Graph tograph2(int[][] itr){
+		int nbSommet = (itr.length*itr[0].length)*2+2-itr[0].length*2;
+		int cmp=1;
+		Graph g = new Graph(nbSommet);
+		for (int i =0;i<itr[0].length;i++){
+			g.addEdge(new Edge(0, cmp, 0));
+			g.addEdge(new Edge((nbSommet-1)-(itr[0].length-cmp)-1, nbSommet-1, itr[itr.length-1][cmp-1]));
+			cmp++;
+		}
+		cmp=1;
+		for (int i =0;i<itr.length-1;i++){
+			for (int j=0;j<itr[0].length;j++)
+			{
+			g.addEdge(new Edge(cmp, cmp+itr[0].length, itr[i][j]));
+			if (cmp+ itr[0].length<g.getNBSommet()-itr[0].length-1 )
+				g.addEdge(new Edge(cmp+itr[0].length, cmp+(itr[0].length*2), 0));
+			if (j>0)
+				g.addEdge(new Edge(cmp, cmp+itr[0].length-1, itr[i][j]));
+			if (j<itr[0].length-1)
+				g.addEdge(new Edge(cmp, cmp+itr[0].length+1, itr[i][j]));
+			cmp++;
+			}
+			cmp=cmp+itr[0].length;
+		}		
+		return g;
 	}
 	
 	//public static void main(String[] args)

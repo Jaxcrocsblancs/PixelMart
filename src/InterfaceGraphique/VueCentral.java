@@ -3,7 +3,6 @@ package InterfaceGraphique;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -22,7 +21,7 @@ public class VueCentral extends JPanel implements Observer{
 	Modele m ;
 	
 	
-	public VueCentral(Modele m) {
+	public VueCentral(final Modele m) {
 		super();
 		this.m = m;
 		this.setPreferredSize(new Dimension(m.getImageModif()[0].length,m.getImageModif().length));

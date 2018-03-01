@@ -26,7 +26,7 @@ public class VueBouton extends JPanel implements Observer{
 	int[][] image;
 	JLabel titre;
 	
-	public VueBouton(Modele m) {
+	public VueBouton(final Modele m) {
 		super();
 		this.m = m;
 		m.addObserver(this);
@@ -68,6 +68,7 @@ public class VueBouton extends JPanel implements Observer{
 			
 		});
 		this.add(supprColonne);
+
 		/*//Attente des fonctions dans le sens de la largeur
 		JButton supprLigne = new JButton("-Ligne");
 		this.add(supprLigne);
@@ -77,7 +78,8 @@ public class VueBouton extends JPanel implements Observer{
 		//Attente deusième partie
 		JButton addLigne = new JButton("+Ligne");
 		this.add(addLigne);*/
-		JButton interet = new JButton("Interet");
+		final JButton interet = new JButton("Interet");
+
 		interet.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				m.setAfficher();
