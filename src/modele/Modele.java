@@ -222,19 +222,37 @@ public class Modele  extends Observable{
 			
 			for(Integer[] t:LC){
 				System.out.println(t[0]+" "+t[1]);
-				
-				rep2[t[0]][t[1]] = -1;
+				rep2[t[0]][t[1]] = 1;
 			}
+			
+			for(int i = 0; i<hauteur; i++){
+				for(int j = 0; j<largeur; j++){
+					System.out.print(rep2[i][j]);
+				}
+				System.out.println();
+			}
+			
+			
 			int nb =0;
 			for(int i= 0 ; i<hauteur ; i++ ){
 				nb = 0;
 				for(int j = 0 ; j<largeur-mod; j++){
-					if(rep2[i][j] == -1){
+					if(rep2[i][j] == 1){
+						nb++;		
+						System.out.print("0");
+					}
+					if(j+1 == largeur-mod && rep2[i][j+1] == 1){
 						nb++;
+						System.out.print("1");
+					}
+					if(j+2 == largeur-1 && rep2[i][j+2] == 1){
+						nb++;
+						System.out.print("2");
 					}
 					rep[i][j]=image[i][j+nb];
-					
 				}
+				System.out.println();
+				System.out.println(nb);
 			}
 		}
 		else{
@@ -442,12 +460,20 @@ public class Modele  extends Observable{
 			ArrayList<Integer> tabSommet2 = new ArrayList<>() ;
 			tabSommet1=dijkstraEtInvertion(g, 0, gCopie.getNBSommet()-1);
 			tabSommet2=dijkstra(g, 0, gCopie.getNBSommet()-1);
-			for(int i :tabSommet1){
-				tabSommet.add(i);
+
+			for(int i =0;i<tabSommet1.size();i++){
+				//System.out.println("tab1: "+i);
+				if (i%2!=1||i==tabSommet1.size()-1){
+					tabSommet.add(tabSommet1.get(i));
+				}
 			}
-			for(int y : tabSommet2){
-				if (!tabSommet1.contains(y)){
-					tabSommet.add(y);
+			for(int i =0;i<tabSommet2.size();i++){
+				//System.out.println("tab2 : "+i);
+				if (!tabSommet1.contains(tabSommet2.get(i))){
+					if (i%2!=1||i==tabSommet2.size()-1){
+						tabSommet.add(tabSommet2.get(i));
+					}
+
 				}
 			}
 			return tabSommet;

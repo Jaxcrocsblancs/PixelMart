@@ -18,15 +18,17 @@ public class Graph
 	 }
 
    public Graph(Graph g) {
-		// TODO Auto-generated constructor stub
-	   V=g.getNBSommet();
-	   E=g.E;
-	   adj = (ArrayList<Edge>[]) new ArrayList[V];
-	   for (int v= 0; v < V; v++)
-			  adj[v] = new ArrayList<Edge>();
-	   for (Edge e : g.edges()){
-		   addEdge(new Edge(e));		   
-	   }
+
+	// TODO Auto-generated constructor stub
+   V=g.getNBSommet();
+   E=g.E;
+   adj = (ArrayList<Edge>[]) new ArrayList[V];
+   for (int v= 0; v < V; v++)
+		  adj[v] = new ArrayList<Edge>();
+   for (Edge e : g.edges()){
+	   Edge f = new Edge(e.from, e.to, e.cost);
+	   addEdge(f);
+   }
    }
 
    public int vertices()
