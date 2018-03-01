@@ -31,7 +31,7 @@ public class VueDroite extends JPanel implements Observer{
 		m.addObserver(this);
 		GridLayout experimentLayout = new GridLayout(0,1);
 		this.setLayout(experimentLayout);
-		this.add(new JLabel());
+
 		final JSlider slide = new JSlider() ;
 		slide.setMinimum(0);
 		slide.setMaximum(20);
@@ -39,7 +39,7 @@ public class VueDroite extends JPanel implements Observer{
 		slide.setPaintTicks(true);
 		slide.setPaintLabels(true);
 		
-		JLabel titre = new JLabel("Stylo",JLabel.CENTER);
+		JLabel titre = new JLabel("Taille du Stylo",JLabel.CENTER);
 		this.add(titre);
 		Hashtable<Integer,JLabel> l = new Hashtable<>();
 		l.put(0,new JLabel("0"));

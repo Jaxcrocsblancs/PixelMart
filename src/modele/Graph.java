@@ -74,7 +74,7 @@ public class Graph
 	 }
 
 public int getNBSommet() {
-	// TODO Auto-generated method stub
+	// TODO Auto-generated method stub888
 	return V;
 }
    
