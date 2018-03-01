@@ -320,6 +320,85 @@ public class Modele  extends Observable{
 		}		
 		return g;
 	}
+	 public ArrayList<Integer> dijkstraEtInvertion(Graph g, int s, int t){
+			ArrayList<Integer> tabSommet = new ArrayList<>() ;
+			int [] predecesseur = new int[g.getNBSommet()];
+			int min ;
+			/* init*/
+			Heap f= new Heap(g.getNBSommet());
+			f.decreaseKey(s ,0);
+			
+
+			while (!f.isEmpty()){
+				min = f.pop();
+				for(Edge e : g.adj(min)){
+					if(f.priority(min) + e.getCost() < f.priority(e.getTo())){
+
+						f.decreaseKey(e.getTo(), f.priority(min) + e.getCost());
+						predecesseur[e.getTo()] = min;
+
+
+					}
+					
+				}
+
+			}
+			min=t;
+			min=predecesseur[min];
+			while (min!=s){
+				
+				tabSommet.add(min);
+				min=predecesseur[min];
+			}
+			
+			for (Edge e :g.edges()){
+				e.cost=e.cost+(f.priority(e.from)-f.priority(e.to));
+			}
+			
+			for(Edge e :g.adj(0))
+			{
+				if (e.to==tabSommet.get(0)){
+					int x=e.from;
+					e.from=e.to;
+					e.to=x;
+				}
+			}
+			min=t;
+			while (min!=s){
+				for(Edge e :g.adj(predecesseur[min]))
+				{
+					if (e.getTo()==min){
+						e.from=min;
+						e.to=predecesseur[min];
+					}
+					
+				}
+				min=predecesseur[min];
+			}
+			return tabSommet;
+		}
+	 
+	 
+	   public ArrayList<Integer> cheminMinFoixDeux(Graph g, int s, int t){
+		   Graph gCopie=new Graph(g);
+			ArrayList<Integer> tabSommet = new ArrayList<>() ;
+			ArrayList<Integer> tabSommet1 = new ArrayList<>() ;
+			ArrayList<Integer> tabSommet2 = new ArrayList<>() ;
+			tabSommet1=dijkstraEtInvertion(g, 0, gCopie.getNBSommet()-1);
+			tabSommet2=dijkstra(g, 0, gCopie.getNBSommet()-1);
+			for(int i :tabSommet1){
+				System.out.println("tab1: "+i);
+				tabSommet.add(i);
+			}
+			for(int y : tabSommet2){
+				System.out.println("tab2 : "+y);
+				if (!tabSommet1.contains(y)){
+					tabSommet.add(y);
+				}
+			}
+			return tabSommet;
+		}
+	   
 	
 	//public static void main(String[] args)
 	// {

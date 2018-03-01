@@ -68,10 +68,13 @@ class Test
 					 {140,52,5,25}};
 		g=tograph2(t);
 		g.writeFile("test.dot");
-		ArrayList<Integer> tab = cheminMinFoixDeux(g, 0, g.getNBSommet());
+		ArrayList<Integer> tab;
+				
+		tab =cheminMinFoixDeux(g, 0, g.getNBSommet());
 		for(int i :tab){
 			System.out.println(i);
 		}
+		
 	 }
    
    static Graph tograph2(int[][] itr){
