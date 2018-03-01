@@ -15,20 +15,21 @@ public class Graph
 		 adj = (ArrayList<Edge>[]) new ArrayList[N];
 		for (int v= 0; v < N; v++)
 		  adj[v] = new ArrayList<Edge>();
-		
 	 }
 
    public Graph(Graph g) {
-	// TODO Auto-generated constructor stub
-   V=g.getNBSommet();
-   E=g.E;
-   for (Edge e : g.edges()){
-	   Edge f = new Edge(e.from, e.to, e.cost);
-	   addEdge(f);
-   }
+		// TODO Auto-generated constructor stub
+	   V=g.getNBSommet();
+	   E=g.E;
+	   adj = (ArrayList<Edge>[]) new ArrayList[V];
+	   for (int v= 0; v < V; v++)
+			  adj[v] = new ArrayList<Edge>();
+	   for (Edge e : g.edges()){
+		   addEdge(new Edge(e));		   
+	   }
    }
 
-public int vertices()
+   public int vertices()
 	 {
 		return V;
 	 }
@@ -83,9 +84,8 @@ public int vertices()
 		  }						
 	 }
 
-public int getNBSommet() {
-	// TODO Auto-generated method stub888
-	return V;
-}
+	public int getNBSommet() {
+		return V;
+	}
    
 }

@@ -14,24 +14,34 @@ public class Modele  extends Observable{
 	int coordX;
 	int coordY;
 	int NbCon;
-
-
+	int mod =2;	
+	
 	public Modele(){
 		/*nom = "image/ex1";*/
-		imageInit = new int[1][1];/*SeamCarving.readpgm(nom+".pgm");*/	
-		imageModif =new int[1][1];/*interest(imageInit);*/
+		imageInit  = new int[1][1];/*SeamCarving.readpgm(nom+".pgm");*/	
+		imageModif = new int[1][1];/*interest(imageInit);*/
 
 		afficher = false;
-		interet = true;
-		stylo = true;
-		NbCon = 10;
+		interet  = true;
+		stylo    = true;
+		NbCon    = 1;
 	}
 	
 	public void supprColonne(){
-		Graph g = tograph(imageModif);	
-		imageInit = supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
-		imageModif = supprimeListePixel(imageModif, dijkstra(g,0,imageModif.length*imageModif[0].length+1));
-		update();
+		Graph g;
+		if(mod == 1){
+			g = tograph(imageModif);	
+			imageInit = supprimeListePixel(imageInit, dijkstra(g,0,imageInit.length*imageInit[0].length+1));
+			imageModif = supprimeListePixel(imageModif, dijkstra(g,0,imageModif.length*imageModif[0].length+1));
+			update();
+		}
+		else if(mod == 2){
+			g = tograph2(imageModif);	
+			imageInit = supprimeListePixel(imageInit, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
+			//imageModif = supprimeListePixel(imageModif, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
+			update();
+		}
+		printTab(imageInit);
 	}
 	
 	public int[][] interest (int[][] image){
@@ -180,21 +190,67 @@ public class Modele  extends Observable{
 		int largeur;
 		hauteur = image.length;
 		largeur = image[0].length;
-		int[][] rep = new int[hauteur][largeur-1];
+		int[][] rep = new int[hauteur][largeur-mod];
+		int[][] rep2 = new int[hauteur][largeur];
 		int supprL;
-		for(int i= 0 ; i<hauteur ; i++ ){
-			supprL = nbLargeur(L.get(L.size()-i-1),largeur,hauteur);
-			for(int j = 0 ; j<largeur-1 ; j++){				
-				if(j<supprL){
-					rep[i][j]=image[i][j];
+		if(mod == 2){
+			int l;
+			int c;
+			
+			ArrayList<Integer[]> LC = new ArrayList();  
+			for(int i:L){
+				if(i<=largeur){
+					l = (i-1)/largeur;
+					c = (i-1)%largeur;
+					Integer[] couple = {l,c};
+					LC.add(couple);
 				}
-				else{
-					rep[i][j]=image[i][j+1];
+				else{				
+					l = ((i-1)/largeur)/2+1;
+					c = (i-1)%largeur;
+					Integer[] couple = {l,c};
+					LC.add(couple);
+				}
+				System.out.println("i:"+i+" l: "+l+" c: "+c);
+			}
+			
+			for(int i= 0 ; i<hauteur ; i++ ){
+				for(int j = 0 ; j<largeur; j++){				
+					rep2[i][j]=0;
+				}
+			}
+			
+			for(Integer[] t:LC){
+				System.out.println(t[0]+" "+t[1]);
+				
+				rep2[t[0]][t[1]] = -1;
+			}
+			int nb =0;
+			for(int i= 0 ; i<hauteur ; i++ ){
+				nb = 0;
+				for(int j = 0 ; j<largeur-mod; j++){
+					if(rep2[i][j] == -1){
+						nb++;
+					}
+					rep[i][j]=image[i][j+nb];
+					
+				}
+			}
+		}
+		else{
+			for(int i= 0 ; i<hauteur ; i++ ){
+				supprL = nbLargeur(L.get(L.size()-i-1),largeur,hauteur);
+				for(int j = 0 ; j<largeur-1 ; j++){				
+					if(j<supprL){
+						rep[i][j]=image[i][j];
+					}
+					else{
+						rep[i][j]=image[i][j+1];
+					}
 				}
 			}
 		}
 		return rep;
-		
 	}
 	
 	void printTab(int[][] image){
@@ -387,24 +443,14 @@ public class Modele  extends Observable{
 			tabSommet1=dijkstraEtInvertion(g, 0, gCopie.getNBSommet()-1);
 			tabSommet2=dijkstra(g, 0, gCopie.getNBSommet()-1);
 			for(int i :tabSommet1){
-				System.out.println("tab1: "+i);
 				tabSommet.add(i);
 			}
 			for(int y : tabSommet2){
-				System.out.println("tab2 : "+y);
 				if (!tabSommet1.contains(y)){
 					tabSommet.add(y);
 				}
 			}
 			return tabSommet;
 		}
-	   
-	
-	//public static void main(String[] args)
-	// {
-	//	new Modele();
-	// }
-
-	
 
 }
