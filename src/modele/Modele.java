@@ -24,7 +24,7 @@ public class Modele  extends Observable{
 		afficher = false;
 		interet  = true;
 		stylo    = true;
-		NbCon    = 1;
+		NbCon    = 10;
 	}
 	
 	public void supprColonne(){
@@ -38,10 +38,9 @@ public class Modele  extends Observable{
 		else if(mod == 2){
 			g = tograph2(imageModif);	
 			imageInit = supprimeListePixel(imageInit, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
-			//imageModif = supprimeListePixel(imageModif, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
+			imageModif = supprimeListePixel(imageModif, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
 			update();
 		}
-		printTab(imageInit);
 	}
 	
 	public int[][] interest (int[][] image){
@@ -211,7 +210,6 @@ public class Modele  extends Observable{
 					Integer[] couple = {l,c};
 					LC.add(couple);
 				}
-				System.out.println("i:"+i+" l: "+l+" c: "+c);
 			}
 			
 			for(int i= 0 ; i<hauteur ; i++ ){
@@ -221,38 +219,30 @@ public class Modele  extends Observable{
 			}
 			
 			for(Integer[] t:LC){
-				System.out.println(t[0]+" "+t[1]);
 				rep2[t[0]][t[1]] = 1;
 			}
-			
-			for(int i = 0; i<hauteur; i++){
-				for(int j = 0; j<largeur; j++){
-					System.out.print(rep2[i][j]);
-				}
-				System.out.println();
-			}
-			
-			
 			int nb =0;
 			for(int i= 0 ; i<hauteur ; i++ ){
 				nb = 0;
 				for(int j = 0 ; j<largeur-mod; j++){
 					if(rep2[i][j] == 1){
 						nb++;		
-						System.out.print("0");
 					}
 					if(j+1 == largeur-mod && rep2[i][j+1] == 1){
 						nb++;
-						System.out.print("1");
 					}
 					if(j+2 == largeur-1 && rep2[i][j+2] == 1){
 						nb++;
-						System.out.print("2");
+					}
+					if(j+1 == largeur-mod && rep2[i][j+1] == 1 && j+2 == largeur-1 && rep2[i][j+2] == 1){
+						nb--;
+						nb--;
+					}
+					if(nb>2){
+						nb =2;
 					}
 					rep[i][j]=image[i][j+nb];
 				}
-				System.out.println();
-				System.out.println(nb);
 			}
 		}
 		else{
