@@ -385,14 +385,18 @@ public class Modele  extends Observable{
 			ArrayList<Integer> tabSommet2 = new ArrayList<>() ;
 			tabSommet1=dijkstraEtInvertion(g, 0, gCopie.getNBSommet()-1);
 			tabSommet2=dijkstra(g, 0, gCopie.getNBSommet()-1);
-			for(int i :tabSommet1){
+			for(int i =0;i<tabSommet1.size();i++){
 				System.out.println("tab1: "+i);
-				tabSommet.add(i);
+				if (i%2!=1||i==tabSommet1.size()-1){
+					tabSommet.add(tabSommet1.get(i));
+				}
 			}
-			for(int y : tabSommet2){
-				System.out.println("tab2 : "+y);
-				if (!tabSommet1.contains(y)){
-					tabSommet.add(y);
+			for(int i =0;i<tabSommet2.size();i++){
+				System.out.println("tab2 : "+i);
+				if (!tabSommet1.contains(tabSommet2.get(i))){
+					if (i%2!=1||i==tabSommet2.size()-1){
+						tabSommet.add(tabSommet2.get(i));
+					}
 				}
 			}
 			return tabSommet;
