@@ -233,6 +233,7 @@ public class Modele  extends Observable{
 					}
 					if(j+2 == largeur-1 && rep2[i][j+2] == 1){
 						nb++;
+<<<<<<< HEAD
 					}
 					if(j+1 == largeur-mod && rep2[i][j+1] == 1 && j+2 == largeur-1 && rep2[i][j+2] == 1){
 						nb--;
@@ -240,7 +241,11 @@ public class Modele  extends Observable{
 					}
 					if(nb>2){
 						nb =2;
+=======
+>>>>>>> 8243e862ce8bee1a91c6957ca2504c5091835790
 					}
+
+					System.out.print(nb);
 					rep[i][j]=image[i][j+nb];
 				}
 			}
