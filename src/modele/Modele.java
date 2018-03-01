@@ -239,16 +239,15 @@ public class Modele  extends Observable{
 				for(int j = 0 ; j<largeur-mod; j++){
 					if(rep2[i][j] == 1){
 						nb++;		
-						System.out.print("0");
 					}
 					if(j+1 == largeur-mod && rep2[i][j+1] == 1){
 						nb++;
-						System.out.print("1");
 					}
 					if(j+2 == largeur-1 && rep2[i][j+2] == 1){
 						nb++;
-						System.out.print("2");
 					}
+
+					System.out.print(nb);
 					rep[i][j]=image[i][j+nb];
 				}
 				System.out.println();
