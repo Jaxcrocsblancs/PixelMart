@@ -91,11 +91,27 @@ public class VueBouton extends JPanel implements Observer{
 				}
 			}
 		});
-		this.add(interet);		
+		this.add(interet);	
+		
+		final JButton changeMob = new JButton("Ligne par ligne");
+
+		changeMob.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if(changeMob.getText() == "Ligne par ligne"){
+					changeMob.setText("2 Ligne par 2 Ligne");
+				}
+				else{
+					changeMob.setText("Ligne par ligne");
+				}
+				m.changeMod();
+			
+				
+			}
+		});
+		this.add(changeMob);		
 	}
 
 	public void update(Observable o, Object arg) {
-		titre.setText("Nombre: "+m.getNbCon());
-	
+		titre.setText("Nombre: "+m.getNbCon()*m.getMod());
 	}
 }

@@ -84,7 +84,7 @@ public class VueDroite extends JPanel implements Observer{
 		});
 		this.add(styloActivite);
 
-		JButton reInit = new JButton("Reinitialisation");
+		JButton reInit = new JButton("Recalcule de l'interet");
 		reInit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				m.setImageModif(m.interest(m.getImageInit()));

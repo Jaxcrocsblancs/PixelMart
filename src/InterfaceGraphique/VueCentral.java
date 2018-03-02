@@ -113,10 +113,17 @@ public class VueCentral extends JPanel implements Observer{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		int[][] image;
+		Color[] tabColor = new Color[256];
+		for(int i = 0; i<256; i++){
+			tabColor[i] = new Color(i,i,i);
+		}
 		    image = m.getImage();
+		    
+		    
+		    
 		    for(int i=0; i<image.length;i++){
 		    	for(int j=0;j<image[0].length;j++){
-		    		g.setColor(new Color(image[i][j],image[i][j],image[i][j]));
+		    		g.setColor(tabColor[image[i][j]]);
 		    		g.drawLine(j,i,j,i);
 		    	}
 		    }

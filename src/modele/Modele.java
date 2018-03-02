@@ -14,7 +14,7 @@ public class Modele  extends Observable{
 	int coordX;
 	int coordY;
 	int NbCon;
-	int mod =2;	
+	int mod = 1;	
 	
 	public Modele(){
 		/*nom = "image/ex1";*/
@@ -24,10 +24,13 @@ public class Modele  extends Observable{
 		afficher = false;
 		interet  = true;
 		stylo    = true;
-		NbCon    = 1;
+		NbCon    = 10;
 	}
 	
 	public void supprColonne(){
+		if(imageInit == null) {
+			return;
+		}
 		Graph g;
 		if(mod == 1){
 			g = tograph(imageModif);	
@@ -37,13 +40,16 @@ public class Modele  extends Observable{
 		}
 		else if(mod == 2){
 			g = tograph2(imageModif);
-			imageInit = supprimeListePixel(imageInit, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
-			imageModif = supprimeListePixel(imageModif, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
+			imageInit = supprimeListePixel(imageInit, twoPath(g,0,g.getNBSommet()-1));
+			imageModif = supprimeListePixel(imageModif, twoPath(g,0,g.getNBSommet()-1));
 			update();
 		}
 	}
 	
 	public int[][] interest (int[][] image){
+		if(image == null) {
+			return null;
+		}
 		int hauteur;
 		int largeur;
 		hauteur = image.length;
@@ -148,20 +154,12 @@ public class Modele  extends Observable{
 			min = f.pop();
 			for(Edge e : g.adj(min)){
 				if(f.priority(min) + e.getCost() < f.priority(e.getTo())){
-
 					f.decreaseKey(e.getTo(), f.priority(min) + e.getCost());
 					predecesseur[e.getTo()] = min;
-
-
 				}
-				
 			}
-
-		}
-		
-		
+		}		
 		min=t;
-
 		min=predecesseur[min];
 		while (min!=s){
 			
@@ -190,6 +188,7 @@ public class Modele  extends Observable{
 		hauteur = image.length;
 		largeur = image[0].length;
 		int[][] rep = new int[hauteur][largeur-mod];
+		int[][] rep2 = new int[hauteur][largeur-1];
 		int supprL;
 		if(mod == 2){
 			for (int i=0 ;i<hauteur;i++){
@@ -224,7 +223,6 @@ public class Modele  extends Observable{
 				}
 			}
 		}
-		printTab(rep);
 		return rep;
 	}
 	
@@ -323,6 +321,7 @@ public class Modele  extends Observable{
 
 	public void setNbCon(int nbCon) {
 		NbCon = nbCon;
+		update();
 	}
 	
 	static Graph tograph2(int[][] itr){
@@ -410,7 +409,7 @@ public class Modele  extends Observable{
 		}
 	 
 	 
-	   public ArrayList<Integer> cheminMinFoixDeux(Graph g, int s, int t){
+	   public ArrayList<Integer> twoPath(Graph g, int s, int t){
 		   Graph gCopie=new Graph(g);
 			ArrayList<Integer> tabSommet = new ArrayList<>() ;
 			ArrayList<Integer> tabSommet1 = new ArrayList<>() ;
@@ -435,5 +434,18 @@ public class Modele  extends Observable{
 			}
 			return tabSommet;
 		}
+
+	public void changeMod() {
+		mod++;
+		if(mod >2){
+			mod = 1;
+		}
+		update();
+	}
+
+	public int getMod() {
+		
+		return mod;
+	}
 
 }
