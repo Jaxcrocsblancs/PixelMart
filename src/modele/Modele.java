@@ -24,7 +24,7 @@ public class Modele  extends Observable{
 		afficher = false;
 		interet  = true;
 		stylo    = true;
-		NbCon    = 10;
+		NbCon    = 1;
 	}
 	
 	public void supprColonne(){
@@ -190,11 +190,8 @@ public class Modele  extends Observable{
 		hauteur = image.length;
 		largeur = image[0].length;
 		int[][] rep = new int[hauteur][largeur-mod];
-		int[][] rep2 = new int[hauteur][largeur];
 		int supprL;
 		if(mod == 2){
-			int l;
-			int c;
 			for (int i=0 ;i<hauteur;i++){
 				int nb=0;
 				for (int j=0 ;j<largeur-mod;j++){
@@ -207,7 +204,7 @@ public class Modele  extends Observable{
 			for (int i=0 ;i<hauteur;i++){
 				int nb=0;
 				for (int j=0 ;j<largeur-mod;j++){
-					if ((L.get(L.size()-i-1)-1)%largeur==j){
+					if ((L.get(L.size()-i-1)-2)%largeur==j){
 						nb++;
 					}
 					rep[i][j]=image[i][j+nb];
@@ -227,6 +224,7 @@ public class Modele  extends Observable{
 				}
 			}
 		}
+		printTab(rep);
 		return rep;
 	}
 	
