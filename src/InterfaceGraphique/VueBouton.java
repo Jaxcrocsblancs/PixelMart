@@ -24,13 +24,14 @@ public class VueBouton extends JPanel implements Observer{
 
 	Modele m ;
 	int[][] image;
+	JLabel titre;
 	
 	public VueBouton(final Modele m) {
 		super();
 		this.m = m;
 		m.addObserver(this);
 		
-		JLabel titre = new JLabel("Nombre",JLabel.CENTER);
+		titre = new JLabel("Nombre: 10",JLabel.CENTER);
 		this.add(titre);
 		final JSlider slide = new JSlider() ;
 		slide.setMinimum(0);
@@ -55,8 +56,6 @@ public class VueBouton extends JPanel implements Observer{
 		});
 		this.add(slide);
 		
-		
-		
 		JButton supprColonne = new JButton("-Colonne");
 		supprColonne.addActionListener(new ActionListener(){
 			@Override
@@ -69,14 +68,18 @@ public class VueBouton extends JPanel implements Observer{
 			
 		});
 		this.add(supprColonne);
-		/*
+
+		/*//Attente des fonctions dans le sens de la largeur
 		JButton supprLigne = new JButton("-Ligne");
 		this.add(supprLigne);
+		//Attente deusième partie
 		JButton addColonne = new JButton("+Colonne");
 		this.add(addColonne);
+		//Attente deusième partie
 		JButton addLigne = new JButton("+Ligne");
 		this.add(addLigne);*/
 		final JButton interet = new JButton("Interet");
+
 		interet.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				m.setAfficher();
@@ -88,16 +91,11 @@ public class VueBouton extends JPanel implements Observer{
 				}
 			}
 		});
-		this.add(interet);
-		
-		
-		
-		
-		
+		this.add(interet);		
 	}
 
 	public void update(Observable o, Object arg) {
-		
+		titre.setText("Nombre: "+m.getNbCon());
 	
 	}
 }

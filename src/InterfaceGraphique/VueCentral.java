@@ -123,15 +123,16 @@ public class VueCentral extends JPanel implements Observer{
 		    if(m.getStylo()){
 			    for (int i=-m.getTailleStylo();i<=m.getTailleStylo(); i++){
 					for(int j = -m.getTailleStylo(); j<=m.getTailleStylo(); j++){
-						if(j+m.getCoordX()>0 && i+m.getCoordY()>0 && j+m.getCoordX()<image[0].length && i+m.getCoordY()<image.length)
-						if( Math.round(Math.sqrt(i*i + j*j)) == m.getTailleStylo()){
-							if((i+j)%2==0){
-								g.setColor(new Color(0,0,0));
+						if(j+m.getCoordX()>0 && i+m.getCoordY()>0 && j+m.getCoordX()<image[0].length && i+m.getCoordY()<image.length){
+							if( Math.round(Math.sqrt(i*i + j*j)) == m.getTailleStylo()){
+								if((i+j)%2==0){
+									g.setColor(new Color(0,0,0));
+								}
+								else{
+									g.setColor(new Color(255,255,255));
+								}
+					    		g.drawLine(j+m.getCoordX(),i+m.getCoordY(),j+m.getCoordX(),i+m.getCoordY());
 							}
-							else{
-								g.setColor(new Color(255,255,255));
-							}
-				    		g.drawLine(j+m.getCoordX(),i+m.getCoordY(),j+m.getCoordX(),i+m.getCoordY());
 						}
 					}
 				}	

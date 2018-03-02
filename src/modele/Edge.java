@@ -10,7 +10,14 @@ class Edge
 		this.to = y;
 		this.cost = cost;
 	 }
-   public int getFrom() {
+   public Edge(Edge e) {
+	   	this.from = e.getFrom();
+		this.to = e.getTo();
+		this.cost = e.getCost();
+	   	
+	}
+   
+	public int getFrom() {
 		return from;
 	}
 	public int getTo() {

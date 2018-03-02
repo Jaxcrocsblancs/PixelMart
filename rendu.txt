@@ -1,0 +1,8 @@
+Repartition du travail:
+Valentin Collignon: fonction toGraph et Dijkstra
+Antonin Calba: fonction write pgm, interest et ajout d'un interface graphique
+
+description et modification
+l'interface propose different bouton/menu pour: ouvrir une nouvelle image, enregistrer les modifications apporter à celle ci,
+visualisé l'interet des pixels de l'image et pouvoir le modifier grace a un stylo à taille variable et désactivable, possibilité de réinisialisé l'interet de l'image
+et modifier le nombre de cologne à supprimer
