@@ -36,7 +36,7 @@ public class Modele  extends Observable{
 			update();
 		}
 		else if(mod == 2){
-			g = tograph2(imageModif);	
+			g = tograph2(imageModif);
 			imageInit = supprimeListePixel(imageInit, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
 			imageModif = supprimeListePixel(imageModif, cheminMinFoixDeux(g,0,g.getNBSommet()-1));
 			update();
@@ -194,11 +194,11 @@ public class Modele  extends Observable{
 		if(mod == 2){
 			for (int i=0 ;i<hauteur;i++){
 				int nb=0;
-				for (int j=0 ;j<largeur-mod;j++){
-					if ((L.get(hauteur-i)-1)%largeur==j){
+				for (int j=0 ;j<largeur-1;j++){
+					if ((L.get(hauteur-i-1)-1)%largeur==j){
 						nb++;
 					}
-					rep[i][j]=image[i][j+nb];
+					rep2[i][j]=image[i][j+nb];
 				}
 			}
 			for (int i=0 ;i<hauteur;i++){
@@ -207,7 +207,7 @@ public class Modele  extends Observable{
 					if ((L.get(L.size()-i-1)-2)%largeur==j){
 						nb++;
 					}
-					rep[i][j]=image[i][j+nb];
+					rep[i][j]=rep2[i][j+nb];
 				}
 			}
 		}
